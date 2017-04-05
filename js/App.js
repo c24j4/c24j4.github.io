@@ -36,6 +36,14 @@ var app = (function () {
             this.addInsects(this.stageData, this.wasps, 'wasp');
 
             this.reversStage(this.stageData);
+
+            this.stageData[0][0].insect.name = 'queen-bee';
+            this.stageData[0][0].insect.defense = 50;
+            this.stageData[0][0].insect.attack = 50;
+
+            this.stageData[this.stageY][this.stageX].insect.name = 'queen-wasp';
+            this.stageData[this.stageY][this.stageX].insect.defense = 50;
+            this.stageData[this.stageY][this.stageX].insect.attack = 50;
         },
 
         createStage: function (rows, colls) {

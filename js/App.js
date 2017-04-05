@@ -41,9 +41,9 @@ var app = (function () {
             this.stageData[0][0].insect.defense = 50;
             this.stageData[0][0].insect.attack = 50;
 
-            this.stageData[this.stageY][this.stageX].insect.name = 'queen-wasp';
-            this.stageData[this.stageY][this.stageX].insect.defense = 50;
-            this.stageData[this.stageY][this.stageX].insect.attack = 50;
+            this.stageData[this.stageY-1][this.stageX-1].insect.name = 'queen-wasp';
+            this.stageData[this.stageY-1][this.stageX-1].insect.defense = 50;
+            this.stageData[this.stageY-1][this.stageX-1].insect.attack = 50;
         },
 
         createStage: function (rows, colls) {

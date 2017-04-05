@@ -164,9 +164,12 @@ var app = (function () {
          * Start game acction
          */
         startGame: function () {
-            app.start.style.display = 'none';
+            app.start.classList.add('start-close');
             app.header.style.display = 'block';
             app.content.style.display = 'block';
+            setTimeout(function(){
+                app.start.style.display = 'none';
+            }, 500);
         },
 
         /**

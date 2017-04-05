@@ -20,11 +20,27 @@ body {
   width: 750px;
   height: 540px;
   padding: 20px;
+  opacity: 1;
   box-sizing: border-box;
   margin: 0 auto;
+  position: relative;
 }
 .container .start {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
   text-align: center;
+  background: #ffffff;
+  opacity: 1;
+  -webkit-transition: opacity 0.5s ease-out;
+  /* Safari */
+  transition: opacity 0.5s ease-out;
+}
+.container .start.start-close {
+  opacity: 0;
 }
 .container .start h1 {
   font-size: 48px;

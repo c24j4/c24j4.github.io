@@ -148,13 +148,13 @@ var app = (function () {
                     newX = parseInt(this.dataset.x) - 1,
                     newY = parseInt(this.dataset.y) - 1,
                     insect = selection ? app.stageData[oldY][oldX]['insect'] : null,
-                    exist = app.stageData[newY][newX]['insect'];
-                if (exist !== null) {
+                    exist = app.stageData[newY][newX]['insect'] || false;
+                if (exist) {
                     app.consoleLog('Cell ' + newY + '/' + newX + ' is already occupied!', true);
                     app.clearSelection();
                 } else {
                     if (selection) {
-                        app.stageData[oldY][oldX]['insect'] = null;
+                        app.stageData[oldY][oldX]['insect'] = false;
                         app.stageData[newY][newX]['insect'] = insect;
                         app.render();
                     }

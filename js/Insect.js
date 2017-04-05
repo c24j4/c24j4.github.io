@@ -5,7 +5,6 @@ var Insect = {
     defense: 30,
     attack: 30,
     luck: 0,
-    damage: 0,
 
     create: function (options) {
         var self = Object.create(this);
@@ -17,7 +16,7 @@ var Insect = {
     },
 
     setLuck: function() {
-        this.luck = Math.floor((Math.random() * 100));
+        this.luck = Math.floor((Math.random() * 100))/100;
     }
 
 };

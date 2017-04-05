@@ -27,39 +27,57 @@ var app = (function () {
         },
 
         initData: function () {
-            var countBees = 0,
-                countWasps = 0;
-            for (var y = 0; y < this.stageY; y++) {
+            this.stageData = this.createStage(this.stageY, this.stageX);
+
+            this.addInsects(this.stageData, this.bees, 'bee');
+
+            this.reversStage(this.stageData);
+
+            this.addInsects(this.stageData, this.wasps, 'wasp');
+
+            this.reversStage(this.stageData);
+        },
+
+        createStage: function (rows, colls) {
+            var arr = [],
+                count = 0;
+
+            for (var y = 0; y < rows; y++) {
                 var row = [];
-
-                for (var x = 0; x < this.stageX; x++) {
-                    var queen = (y === 0 && x === 0) || (y === this.stageY - 1 && x === this.stageX - 1),
-                        // splitBeesByRow = this.bees < this.stageX*2 ? this.bees / 2 : this.bees;
-                        bee = y * this.stageX + x < this.bees,
-                        // bee = countBees < this.bees ? (x+1)*(y+1) <= this.bees*0.6 : false,
-                        wasp = y * this.stageX + x + 1 > this.stageY * this.stageX - this.wasps,
-                        cell = {
-                            insect: !queen && !bee && !wasp ? null : Insect.create({
-                                name: (queen ? 'queen-' : '') + (bee ? 'bee' : '') + (wasp ? 'wasp' : ''),
-                                defense: queen ? 50 : 30,
-                                attack: queen ? 50 : 30
-                            })
-                        };
-
-                        // console.debug((x+1)*(y+1) <= this.bees *0.6);
-
-                    if (cell.insect !== null) {
-                        cell.insect.setLuck();
-                    }
-
-                    if (cell.insect !== null && (cell.insect.name === 'bee' || cell.insect.name === 'queen-bee')) {
-                        countBees++;
-                    }
-
+                for (var x = 0; x < colls; x++) {
+                    var cell = {
+                        id: count + 1,
+                        insect: false
+                    };
                     row.push(cell);
+                    count++;
                 }
+                arr.push(row);
+            }
 
-                this.stageData.push(row);
+            return arr;
+        },
+
+        addInsects: function (arr, nr, name) {
+            var count = 0;
+            for (var y in arr) {
+                for (var x in arr[y]) {
+                    var test = ((parseInt(x) + 1) * (parseInt(x) + 1) + (parseInt(y) + 1) * (parseInt(y) + 1)) / 2;
+                    if (test <= nr && count < nr) {
+                        arr[y][x].insect = Insect.create({
+                            name: name
+                        });
+                        arr[y][x].insect.setLuck();
+                        count++;
+                    }
+                }
+            }
+        },
+
+        reversStage: function (arr) {
+            arr.reverse();
+            for (var y in arr) {
+                arr[y] = arr[y].reverse();
             }
         },
 
@@ -163,19 +181,19 @@ var app = (function () {
             errorHtml.scrollIntoView(false);
         },
 
-        addZero: function (i) {
-            if (i < 10) {
-                i = "0" + i;
-            }
-            return i;
-        },
-
         getTime: function () {
             var d = new Date(),
                 h = this.addZero(d.getHours()),
                 m = this.addZero(d.getMinutes()),
                 s = this.addZero(d.getSeconds());
             return h + ":" + m + ":" + s;
+        },
+
+        addZero: function (i) {
+            if (i < 10) {
+                i = "0" + i;
+            }
+            return i;
         }
     };
 
